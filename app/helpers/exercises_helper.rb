@@ -57,10 +57,6 @@ module ExercisesHelper
     end
   end
 
-  def visible_exercises task
-    (task.visible_to_admin_only && !current_user.master?) ? [] : task.exercises
-  end
-
   # Display visible_to_admin_only exercise for admin only
   def visible_exercise? exercise
     !exercise.task.visible_to_admin_only || current_user.master?

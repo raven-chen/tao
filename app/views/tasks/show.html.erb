@@ -25,7 +25,7 @@
 
   <div class="others-exercises">
     <% if @task.exercises.present? -%>
-      <%= render :partial => "exercises/list", locals: { exercises: visible_exercises(@task) } %>
+      <%= render :partial => "exercises/list", locals: { exercises: @exercises } %>
     <% else -%>
       <div class="well no-result">
         <%= t("helpers.no_results") %>
