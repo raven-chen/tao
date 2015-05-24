@@ -57,7 +57,7 @@ class ExercisesController < ApplicationController
   def index
     @options = {}
 
-    @options = %w{from to task_id user_id order}.inject({}.with_indifferent_access) { |m, key|
+    @options = %w{from to task_id user_id order no_quick_logged}.inject({}.with_indifferent_access) { |m, key|
       params.delete(key) if params[key].blank? # Strip out blank string
 
       case key
@@ -75,6 +75,8 @@ class ExercisesController < ApplicationController
     @exercises = Exercise.scoped.includes(:comments, :task, :user)
 
     @exercises = @exercises.where(:date => @options[:from]..@options[:to])
+
+    @exercises = @exercises.no_quick_logged if @options[:no_quick_logged]
 
     [:task_id, :user_id].each {|attr| @exercises = @exercises.where(attr => params[attr]) if params[attr].present? }
 

@@ -11,6 +11,8 @@ class Exercise < ActiveRecord::Base
   validates_uniqueness_of :date, :scope => [:user_id, :task_id]
   validate :unique_for_common_task, :on => :create
 
+  scope :no_quick_logged, where("content IS NOT NULL")
+
   def unique_for_common_task
     return true if !task.common
 
