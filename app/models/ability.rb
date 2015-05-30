@@ -14,6 +14,10 @@ class Ability
     can :manage, :all
   end
 
+  def hr
+    can :manage, User
+  end
+
   def user
     can :read, Notification
   end
