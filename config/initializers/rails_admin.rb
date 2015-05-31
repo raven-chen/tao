@@ -137,10 +137,8 @@ RailsAdmin.config do |config|
     edit do
       field :name
       field :category
-      field :content, :rich_editor do
-        config({
-          :insert_many => true
-        })
+      field :content do
+        ckeditor true
       end
     end
 
