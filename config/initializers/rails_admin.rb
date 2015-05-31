@@ -84,10 +84,8 @@ RailsAdmin.config do |config|
       field :common
       field :required
       field :visible_to_admin_only
-      field :description, :rich_editor do
-        config({
-          :insert_many => true
-        })
+      field :description do
+        ckeditor true
       end
       field :due_date
     end
@@ -104,10 +102,8 @@ RailsAdmin.config do |config|
   config.model 'Topic' do
     edit do
       field :title
-      field :content, :rich_editor do
-        config({
-          :insert_many => true
-        })
+      field :content do
+        ckeditor true
       end
     end
   end

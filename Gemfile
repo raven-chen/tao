@@ -37,7 +37,6 @@ gem 'jquery-rails', '~> 2.0.0'
 gem 'jquery-ui-rails'
 
 gem 'rails_admin'
-gem "rich"
 gem 'ckeditor'
 gem "cancan"
 gem "kaminari"
