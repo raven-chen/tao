@@ -1,5 +1,5 @@
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://ruby.taobao.org/
   specs:
     actionmailer (3.2.21)
       actionpack (= 3.2.21)
@@ -93,7 +93,7 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    kgio (2.8.0)
+    kgio (2.10.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
