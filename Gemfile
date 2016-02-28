@@ -22,8 +22,7 @@ group :assets do
 end
 
 group :production do
-  gem 'fog'
-  gem 'unicorn'
+  gem 'unicorn', '4.9.0'
 end
 
 gem 'rails_12factor'
@@ -52,7 +51,10 @@ gem 'acts-as-taggable-on', '~> 3.4'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-rails'
+end
 
 # To use debugger
 # gem 'debugger'
