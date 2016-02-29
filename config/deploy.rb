@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :repo_url, 'git@github.com:raven-chen/tao.git'
-
+set :rails_env, 'production'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -21,6 +21,7 @@ set :repo_url, 'git@github.com:raven-chen/tao.git'
 # Default value for :pty is false
 # set :pty, true
 
+set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
@@ -34,14 +35,26 @@ set :repo_url, 'git@github.com:raven-chen/tao.git'
 # set :keep_releases, 5
 
 namespace :deploy do
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+  desc "Restart unicorn"
+  task :restart do
+    on roles(:app) do
+      execute("kill -USR2 `cat /tmp/#{fetch(:application)}.pid`")
     end
   end
 
+  task :stop do
+    on roles(:app) do
+      execute("kill -QUIT `cat /tmp/#{fetch(:application)}.pid`")
+    end
+  end
+
+  task :start do
+    on roles(:app) do
+      execute("cd #{release_path} && UNICORN_SOCK_FILE=/tmp/#{fetch(:application)}.sock UNICORN_PID_FILE=/tmp/#{fetch(:application)}.pid HOME_DIR=#{current_path}  bundle exec unicorn -E production -D -c #{release_path}/config/system/unicorn.conf.rb")
+    end
+  end
+
+  task :publishing, roles(:app) do
+    invoke "deploy:restart"
+  end
 end
