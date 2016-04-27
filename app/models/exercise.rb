@@ -47,7 +47,7 @@ class Exercise < ActiveRecord::Base
     def unfinished_user tasks, start_date, end_date
       result = []
       date_range = start_date..end_date
-      users = Site.users
+      users = User.all
       exercises = Exercise.where(date: date_range).to_a
 
       users.each do |user|
